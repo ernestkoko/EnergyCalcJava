@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/cardview_light_background"
+    tools:context=".SinglePhase">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/eight_dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/note_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:text="@string/vat_is_seven_point_five_percent"
+            android:textColor="@color/colorAccent" />
+
+        <LinearLayout
+            android:id="@+id/first_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:padding="@dimen/dp_2"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/current_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_end"
+                android:layout_weight="1"
+                android:hint="@string/current"
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/current_main_edit"
+                   style="@style/text_edit_style" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/voltage_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_end"
+                android:layout_marginEnd="@dimen/margin_end"
+                android:layout_weight="1"
+                android:hint="@string/voltage"
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inner_voltage"
+                   style="@style/text_edit_style"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pf_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_end"
+                android:layout_weight="1"
+                android:hint="@string/pf"
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inner_pf"
+                   style="@style/text_edit_style"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_availability_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:padding="@dimen/dp_2"
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/availability_edit"
+                style="@style/text_edit_layout"
+                android:layout_marginEnd="@dimen/margin_end"
+                android:hint="@string/availability"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inner_avail"
+                    style="@style/text_edit_style" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tariff_edit"
+                style="@style/text_edit_layout"
+                android:layout_marginStart="@dimen/margin_end"
+                android:layout_marginEnd="@dimen/margin_end"
+                android:hint="@string/tariff"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inner_tariff"
+                    style="@style/text_edit_style" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/num_months_edit"
+                style="@style/text_edit_layout"
+                android:layout_marginStart="@dimen/margin_end"
+                android:hint="@string/months"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inner_month"
+                    style="@style/text_edit_style" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/calculate_single_button"
+            style="@style/button_style"
+            android:text="Calculate" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:padding="@dimen/dp_2"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/kw_first"
+                style="@style/display_text_views"
+                android:layout_marginBottom="@dimen/eight_dp"
+                android:background="@drawable/text_back"
+                android:text="@string/power"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/kwh_first"
+                style="@style/display_text_views"
+                android:layout_marginBottom="@dimen/eight_dp"
+                android:background="@drawable/text_back"
+                android:text="@string/energy" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/amount_first"
+                style="@style/display_text_views"
+
+
+                android:background="@drawable/text_back"
+
+
+                android:text="@string/amount" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reset_single_button"
+            style="@style/button_style"
+            android:text="Reset" />
+    </LinearLayout>
+
+
+</ScrollView>

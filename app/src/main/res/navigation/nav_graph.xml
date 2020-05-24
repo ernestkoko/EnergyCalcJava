@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startPage">
+
+    <fragment
+        android:id="@+id/singlePhase"
+        android:name="com.ernest.energycalcjava.SinglePhase"
+        android:label="fragment_single_phase"
+        tools:layout="@layout/fragment_single_phase" >
+        <action
+            android:id="@+id/action_singlePhase_to_startPage"
+            app:destination="@id/startPage"
+
+
+            />
+        <action
+            android:id="@+id/action_singlePhase_to_threePhase"
+            app:destination="@id/threePhase"
+           />
+    </fragment>
+    <fragment
+        android:id="@+id/threePhase"
+        android:name="com.ernest.energycalcjava.ThreePhase"
+        android:label="fragment_three_phase"
+        tools:layout="@layout/fragment_three_phase" >
+        <action
+            android:id="@+id/action_threePhase_to_startPage2"
+            app:destination="@id/startPage"
+           />
+        <action
+            android:id="@+id/action_threePhase_to_singlePhase"
+            app:destination="@id/singlePhase"
+           app:exitAnim="@anim/fragment_fade_exit"/>
+    </fragment>
+    <fragment
+        android:id="@+id/startPage"
+        android:name="com.ernest.energycalcjava.StartPage"
+        android:label="fragment_start_page"
+        tools:layout="@layout/fragment_start_page" >
+        <action
+            android:id="@+id/action_startPage_to_singlePhase"
+            app:destination="@id/singlePhase"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:exitAnim="@anim/fragment_fade_exit"
+            />
+        <action
+            android:id="@+id/action_startPage_to_threePhase"
+            app:destination="@id/threePhase"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:exitAnim="@anim/fragment_fade_exit"/>
+    </fragment>
+</navigation>
