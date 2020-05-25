@@ -8,16 +8,16 @@
     <string name="single_phase" translatable="false">Single Phase</string>
     <string name="welcome" translatable="false">Welcome</string>
     <string name="availability" translatable="false">Availability</string>
-    <string name="months" translatable="false">Month(S)</string>
+    <string name="months" translatable="false">Month(s)</string>
     <string name="tariff" translatable="false">Tariff</string>
     <string name="current" translatable="false">Current</string>
-    <string name="current1">Current1</string>
-    <string name="current2">Current2</string>
-    <string name="current3">Current3</string>
+    <string name="current1">Current 1</string>
+    <string name="current2">Current 2</string>
+    <string name="current3">Current 3</string>
     <string name="voltage" translatable="false">Voltage</string>
-    <string name="voltage1">Voltage1</string>
-    <string name="voltage2">Voltage2</string>
-    <string name="voltage3">Voltage3</string>
+    <string name="voltage1">Voltage 1</string>
+    <string name="voltage2">Voltage 2</string>
+    <string name="voltage3">Voltage 3</string>
     <string name="pf">Pf</string>
     <string name="night_mode">Night Mode</string>
     <string name="day_mode">Day Mode</string>
@@ -37,4 +37,7 @@
     <string name="invalid_voltage1">Enter Valid Voltage1</string>
     <string name="invalid_voltage2">Enter Valid voltage2</string>
     <string name="invalid_voltage3">Enter Valid Voltage3</string>
+    <string name="diversity_factor_on">Diversity Factor: ON</string>
+    <string name="diversity_factor_off">Diversity Factor: OFF</string>
+    <string name="diversity_factor_is_sixty_percent">"Diversity Factor is 60%"</string>
 </resources>

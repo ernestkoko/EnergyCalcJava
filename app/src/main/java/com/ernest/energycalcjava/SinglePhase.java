@@ -1,5 +1,6 @@
 package com.ernest.energycalcjava;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -12,7 +13,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 
+import com.ernest.energycalcjava.databinding.FragmentSinglePhaseBinding;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -27,6 +30,7 @@ public class SinglePhase extends Fragment {
     //inter edit fields
     private TextInputEditText innerCurrent, innerVoltage, innerPf, innerAvail, innerMonth, innerTariff;
     private MaterialTextView noteText;
+    private FragmentSinglePhaseBinding mBinding;
 
 
     private MaterialTextView mKw, mKwh, mAmount;
@@ -39,37 +43,11 @@ public class SinglePhase extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_single_phase, container, false);
-        //initialise the views
-        //Edit text views
-        mCurrent = view.findViewById(R.id.current_edit);
-        mVoltage = view.findViewById(R.id.voltage_edit);
-        mPf = view.findViewById(R.id.pf_edit);
-        mAvailability = view.findViewById(R.id.availability_edit);
-        mTariff = view.findViewById(R.id.tariff_edit);
-        mMonth = view.findViewById(R.id.num_months_edit);
-        //Button views
-        final MaterialButton mReset = view.findViewById(R.id.reset_single_button);
-        final MaterialButton mCalculate = view.findViewById(R.id.calculate_single_button);
-        //for text views
-        mKw = view.findViewById(R.id.kw_first);
-        mKwh = view.findViewById(R.id.kwh_first);
-        mAmount = view.findViewById(R.id.amount_first);
-
-        //the inner text fields
-        innerCurrent = view.findViewById(R.id.current_main_edit);
-        innerVoltage = view.findViewById(R.id.inner_voltage);
-        innerAvail = view.findViewById(R.id.inner_avail);
-        innerPf = view.findViewById(R.id.inner_pf);
-        innerTariff = view.findViewById(R.id.inner_tariff);
-        innerMonth = view.findViewById(R.id.inner_month);
-        //for note text
-        noteText = view.findViewById(R.id.note_text);
-
+        mBinding = FragmentSinglePhaseBinding.inflate(inflater, container, false);
+        View view = mBinding.getRoot();
 
         //setting on click listener on the calculate button
-        mCalculate.setOnClickListener(new View.OnClickListener() {
+        mBinding.calculateSingleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 calculate();
@@ -80,7 +58,7 @@ public class SinglePhase extends Fragment {
         });
 
         //reset
-        mReset.setOnClickListener(new View.OnClickListener() {
+        mBinding.resetSingleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 reset();
@@ -90,36 +68,70 @@ public class SinglePhase extends Fragment {
         //set on key listener
         setOnTouchListener();
 
+        //set state changed listener
+        mBinding.dfSwitch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //check if the switch is checked
+                if (mBinding.dfSwitch1.isChecked()){
+                    //if true set the texts
+                    mBinding.switchText.setText(getString(R.string.diversity_factor_on));
+                    mBinding.noteText.setText(getText(R.string.vat_is_seven_point_five_percent));
+                    mBinding.dfText.setText(getString(R.string.diversity_factor_is_sixty_percent));
+                    //set the visibility of the text VISIBLE
+                    mBinding.dfText.setVisibility(View.VISIBLE);
+                }else{
+                    //set the text
+                    mBinding.switchText.setText(getString(R.string.diversity_factor_off));
+                    //set the visibility INVISIBLE
+                   mBinding.dfText.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        //seton click listener on switch
+//        mBinding.dfSwitch1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mBinding.dfSwitch1.isChecked()){
+//                    mBinding.switchText.setText(getString(R.string.diversity_factor_on));
+//                }else{
+//                    mBinding.switchText.setText(getString(R.string.diversity_factor_off));
+//                }
+//            }
+//        });
+
         return view;
     }
 
     //reset all the edit texts to null
     private void reset() {
-        mCurrent.getEditText().setText("");
-        mVoltage.getEditText().setText("");
-        mMonth.getEditText().setText("");
-        mAvailability.getEditText().setText("");
-        mTariff.getEditText().setText("");
-        mPf.getEditText().setText("");
+        mBinding.currentEdit.getEditText().setText("");
+        mBinding.voltageEdit.getEditText().setText("");
+        mBinding.numMonthsEdit.getEditText().setText("");
+        mBinding.availabilityEdit.getEditText().setText("");
+        mBinding.tariffEdit.getEditText().setText("");
+        mBinding.pfEdit.getEditText().setText("");
 
-        mKw.setText(getString(R.string.power));
-        mKwh.setText(getString(R.string.energy));
-        mAmount.setText(getString(R.string.amount));
+        mBinding.kwFirst.setText(getString(R.string.power));
+        mBinding.kwhFirst.setText(getString(R.string.energy));
+        mBinding.amountFirst.setText(getString(R.string.amount));
         //set all errors to null
-        mCurrent.setError(null);
-        mVoltage.setError(null);
-        mPf.setError(null);
-        mAvailability.setError(null);
-        mTariff.setError(null);
-        mMonth.setError(null);
+        mBinding.currentEdit.setError(null);
+        mBinding.voltageEdit.setError(null);
+        mBinding.pfEdit.setError(null);
+        mBinding.availabilityEdit.setError(null);
+        mBinding.tariffEdit.setError(null);
+        mBinding.numMonthsEdit.setError(null);
 
 
         //set note text invisible
-        noteText.setVisibility(View.INVISIBLE);
+        mBinding.noteText.setVisibility(View.INVISIBLE);
 
     }
 
     //calculate the values
+    @SuppressLint("SetTextI18n")
     private void calculate() {
 
         //variables to hold int values
@@ -129,76 +141,90 @@ public class SinglePhase extends Fragment {
         double availInt;
         double tariffInt;
         double monthInt;
+        double kw, kwh, amount;
         //getting the string values from the edit text
         //current
 
-        if (!isValidNumber(mCurrent.getEditText().getText())) {
-            mCurrent.setError("Enter Valid Current!");
+        if (!isValidNumber(mBinding.currentMainEdit.getText())) {
+            mBinding.currentEdit.setError("Enter Valid Current!");
             currentInt = 0.0;
 
 
         } else {
-            currentInt = Double.parseDouble(mCurrent.getEditText().getText().toString());
-            mCurrent.setError(null);
+            currentInt = Double.parseDouble(mBinding.currentMainEdit.getText().toString());
+            mBinding.currentEdit.setError(null);
         }
-        if (!isValidNumber(mVoltage.getEditText().getText())) {
-            mVoltage.setError("Enter Valid Voltage!");
+        if (!isValidNumber(mBinding.innerVoltage.getText())) {
+            mBinding.voltageEdit.setError("Enter Valid Voltage!");
             voltageInt = 0.0;
 
 
         } else {
-            voltageInt = Double.parseDouble(mVoltage.getEditText().getText().toString());
-            mVoltage.setError(null);
+            voltageInt = Double.parseDouble(mBinding.innerVoltage.getText().toString());
+            mBinding.voltageEdit.setError(null);
         }
-        if (!isValidNumber(mPf.getEditText().getText())) {
-            mPf.setError("Enter Valid Power Factor!");
+        if (!isValidNumber(mBinding.innerPf.getText())) {
+            mBinding.pfEdit.setError("Enter Valid Power Factor!");
             pfInt = 0.0;
 
 
         } else {
-            pfInt = Double.parseDouble(mPf.getEditText().getText().toString());
-            mPf.setError(null);
+            pfInt = Double.parseDouble(mBinding.innerPf.getText().toString());
+            mBinding.pfEdit.setError(null);
         }
-        if (!isValidNumber(mMonth.getEditText().getText())) {
-            mMonth.setError("Enter Valid Number of Month(s)!");
+        if (!isValidNumber(mBinding.innerMonth.getText())) {
+            mBinding.numMonthsEdit.setError("Enter Valid Number of Month(s)!");
             monthInt = 0.0;
 
 
         } else {
-            monthInt = Double.parseDouble(mMonth.getEditText().getText().toString());
-            mMonth.setError(null);
+            monthInt = Double.parseDouble(mBinding.innerMonth.getText().toString());
+            mBinding.numMonthsEdit.setError(null);
         }
-        if (!isValidNumber(mAvailability.getEditText().getText())) {
-            mAvailability.setError("Enter Valid Hour(s) of Availability!");
+        if (!isValidNumber(mBinding.innerAvail.getText())) {
+            mBinding.availabilityEdit.setError("Enter Valid Hour(s) of Availability!");
             availInt = 0.0;
 
 
         } else {
-            availInt = Double.parseDouble(mAvailability.getEditText().getText().toString());
-            mAvailability.setError(null);
+            availInt = Double.parseDouble(mBinding.innerAvail.getText().toString());
+           mBinding.availabilityEdit.setError(null);
         }
-        if (!isValidNumber(mTariff.getEditText().getText())) {
-            mTariff.setError("Enter valid Tariff Class!");
+        if (!isValidNumber(mBinding.innerTariff.getText())) {
+            mBinding.tariffEdit.setError("Enter valid Tariff Class!");
             tariffInt = 0.0;
 
 
         } else {
-            tariffInt = Double.parseDouble(mTariff.getEditText().getText().toString());
-            mTariff.setError(null);
+            tariffInt = Double.parseDouble(mBinding.innerTariff.getText().toString());
+            mBinding.tariffEdit.setError(null);
         }
 
-        //calculate the KW, KWh, and Amount
-        double kw = (currentInt * voltageInt * pfInt) / 1000;
-        double kwh = kw * monthInt * availInt;
-        double amount = kwh * tariffInt * 1.075;
+        //calculate the Power in KW
+        kw = (currentInt * voltageInt * pfInt) / 1000;
+        //check if the switch is checked
+        if (mBinding.dfSwitch1.isChecked()){
+            //if true calculate for energy  and make the customer pay for 60% of it (energy)
+            kwh = kw * monthInt * availInt * 0.6;
+            //calculate the amount
+            amount = kwh * tariffInt * 1.075;
+
+        }else {
+            // else calculate the KWh, and Amount for 100%
+            kwh = kw * monthInt * availInt;
+            amount = kwh * tariffInt * 1.075;
+
+
+        }
+
 
         //setting the value to text views
-        mKw.setText(getString(R.string.power) + " " + String.format("%.3f", kw) + "KW");
-        mKwh.setText(getString(R.string.energy) + " " + String.format("%.3f", kwh) + "KWh");
-        mAmount.setText(getString(R.string.amount) + " " + "#" + String.format("%.2f", amount));
+        mBinding.kwFirst.setText(getString(R.string.power) + " " + String.format("%.3f", kw) + "KW");
+        mBinding.kwhFirst.setText(getString(R.string.energy) + " " + String.format("%.3f", kwh) + "KWh");
+        mBinding.amountFirst.setText(getString(R.string.amount) + " " + "#" + String.format("%.2f", amount));
 
         //set note text visible
-        noteText.setVisibility(View.VISIBLE);
+        mBinding.noteText.setVisibility(View.VISIBLE);
 
 
     }
@@ -230,62 +256,51 @@ public class SinglePhase extends Fragment {
     //set on keyboard key listener
     private void setOnTouchListener() {
         //for current edit text
-        innerCurrent.setOnTouchListener(new View.OnTouchListener() {
+        mBinding.currentMainEdit.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                mCurrent.setError(null);
+                mBinding.currentEdit.setError(null);
                 return false;
             }
         });
-//        innerCurrent.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//
-//                if (isValidNumber(innerCurrent.getText())) {
-//                    mCurrent.setError(null);
-//
-//                }
-//
-//                return false;
-//            }
-//        });
+
         //for voltage
-        innerVoltage.setOnTouchListener(new View.OnTouchListener() {
+        mBinding.innerVoltage.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                mVoltage.setError(null);
+                mBinding.voltageEdit.setError(null);
                 return false;
             }
         });
 
-        innerTariff.setOnTouchListener(new View.OnTouchListener() {
+        mBinding.innerTariff.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                mTariff.setError(null);
+                mBinding.tariffEdit.setError(null);
                 return false;
             }
         });
 
-        innerPf.setOnTouchListener(new View.OnTouchListener() {
+        mBinding.innerPf.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                mPf.setError(null);
+                mBinding.pfEdit.setError(null);
                 return false;
             }
         });
 
-        innerMonth.setOnTouchListener(new View.OnTouchListener() {
+        mBinding.innerMonth.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                mMonth.setError(null);
+                mBinding.numMonthsEdit.setError(null);
                 return false;
             }
         });
 
-        innerAvail.setOnTouchListener(new View.OnTouchListener() {
+        mBinding.innerAvail.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                mAvailability.setError(null);
+                mBinding.availabilityEdit.setError(null);
                 return false;
             }
         });

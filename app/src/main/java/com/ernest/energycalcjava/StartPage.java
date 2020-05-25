@@ -26,7 +26,7 @@ import com.google.android.material.button.MaterialButton;
  * A simple {@link Fragment} subclass.
  */
 public class StartPage extends Fragment {
-    private MaterialButton singlePhaseButton, threePhaseButton;
+   //using view binding
     private FragmentStartPageBinding mBinding;
 
 
@@ -42,11 +42,6 @@ public class StartPage extends Fragment {
         //binding to the view
         mBinding = FragmentStartPageBinding.inflate(inflater,container, false);
         View view = mBinding.getRoot();
-        // Inflate the layout for this fragment
-       // final View view = inflater.inflate(R.layout.fragment_start_page, container, false);
-        //initialise the buttons
-        singlePhaseButton = view.findViewById(R.id.single_phase_button);
-        threePhaseButton = view.findViewById(R.id.three_phase_button);
 
         //set on click listeners to the views
         mBinding.singlePhaseButton.setOnClickListener(new View.OnClickListener() {

@@ -19,11 +19,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible"
             android:textAppearance="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
             android:text="@string/vat_is_seven_point_five_percent"
             android:textSize="18sp"
             android:textColor="@color/colorAccent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/df_text"
+            android:layout_margin="@dimen/eight_dp"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:orientation="horizontal">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/switch_text"
+                android:layout_width="wrap_content"
+                android:text="@string/diversity_factor_off"
+                android:textStyle="bold"
+                android:textColor="@color/design_default_color_primary_dark"
+
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/sixteen_dp"/>
+            <Switch
+                android:id="@+id/df_switch1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:gravity="end"
+
+                android:layout_marginEnd="@dimen/sixteen_dp"/>
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/first_linear"
@@ -44,6 +75,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/current_main_edit"
                    style="@style/text_edit_style" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
