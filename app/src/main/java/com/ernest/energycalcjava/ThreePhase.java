@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,8 +15,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
-
-import java.security.Signature;
 
 
 /**
@@ -62,102 +61,93 @@ public class ThreePhase extends Fragment {
             }
         });
         //set on key listener
-        setKeyListener();
+        setOnTouchListener();
 
         return view;
     }
 
-    private void setKeyListener() {
-        mCurrent1.setOnKeyListener(new View.OnKeyListener() {
+    private void setOnTouchListener() {
+        mCurrent1.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mCurrent1.getText())){
-                    mCurrentLay1.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mCurrentLay1.setError(null);
                 return false;
             }
         });
-        mCurrent2.setOnKeyListener(new View.OnKeyListener() {
+        mCurrent2.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mCurrent2.getText())){
-                    mCurrentLay2.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mCurrentLay2.setError(null);
                 return false;
             }
         });
-        mCurrent3.setOnKeyListener(new View.OnKeyListener() {
+        mCurrent3.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mCurrent3.getText())){
-                    mCurrentLay3.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mCurrentLay3.setError(null);
                 return false;
             }
         });
-        mVoltage1.setOnKeyListener(new View.OnKeyListener() {
+
+
+
+        mVoltage1.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mVoltage1.getText())){
-                    mVoltageLay1.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mVoltageLay1.setError(null);
                 return false;
             }
         });
-        mVoltage2.setOnKeyListener(new View.OnKeyListener() {
+
+
+        mVoltage2.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mVoltage2.getText())){
-                    mVoltageLay2.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mVoltageLay2.setError(null);
                 return false;
             }
         });
-        mVoltage3.setOnKeyListener(new View.OnKeyListener() {
+
+        mVoltage3.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mVoltage3.getText())){
-                    mVoltageLay3.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mVoltageLay3.setError(null);
                 return false;
             }
         });
-        mPf.setOnKeyListener(new View.OnKeyListener() {
+
+        mPf.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mPf.getText())){
-                    mPfLay.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mPfLay.setError(null);
                 return false;
             }
         });
-        mMonth.setOnKeyListener(new View.OnKeyListener() {
+
+        mMonth.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mMonth.getText())){
-                    mMonthLay.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mMonthLay.setError(null);
                 return false;
             }
         });
-        mAvail.setOnKeyListener(new View.OnKeyListener() {
+
+        mAvail.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mAvail.getText())){
-                    mAvailLay.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mAvailLay.setError(null);
                 return false;
             }
         });
-        mTariff.setOnKeyListener(new View.OnKeyListener() {
+
+        mTariff.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (SinglePhase.isValidNumber(mTariff.getText())){
-                    mTariffLay.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mTariffLay.setError(null);
                 return false;
             }
         });
+
 
     }
 
@@ -168,42 +158,42 @@ public class ThreePhase extends Fragment {
             current1 = Double.parseDouble(mCurrent1.getText().toString());
             mCurrentLay1.setError(null);
         } else {
-            mCurrentLay1.setError(getString(R.string.enter_valid_current));
+            mCurrentLay1.setError(getString(R.string.invalid_current1));
             current1 = 0.0;
         }
         if (SinglePhase.isValidNumber(mCurrent2.getText())) {
             current2 = Double.parseDouble(mCurrent2.getText().toString());
             mCurrentLay2.setError(null);
         } else {
-            mCurrentLay2.setError(getString(R.string.enter_valid_current));
+            mCurrentLay2.setError(getString(R.string.invalid_current2));
             current2 = 0.0;
         }
         if (SinglePhase.isValidNumber(mCurrent3.getText())) {
             current3 = Double.parseDouble(mCurrent3.getText().toString());
             mCurrentLay3.setError(null);
         } else {
-            mCurrentLay3.setError(getString(R.string.enter_valid_current));
+            mCurrentLay3.setError(getString(R.string.invalid_current3));
             current3 = 0.0;
         }
         if (SinglePhase.isValidNumber(mVoltage1.getText())) {
             volt1 = Double.parseDouble(mVoltage1.getText().toString());
             mVoltageLay1.setError(null);
         } else {
-            mVoltageLay1.setError(getString(R.string.enter_valid_voltage));
+            mVoltageLay1.setError(getString(R.string.invalid_voltage1));
             volt1 = 0.0;
         }
         if (SinglePhase.isValidNumber(mVoltage2.getText())) {
             volt2 = Double.parseDouble(mVoltage2.getText().toString());
             mVoltageLay2.setError(null);
         } else {
-            mVoltageLay2.setError(getString(R.string.enter_valid_voltage));
+            mVoltageLay2.setError(getString(R.string.invalid_voltage2));
             volt2 =0.0;
         }
         if (SinglePhase.isValidNumber(mVoltage3.getText())) {
             volt3 = Double.parseDouble(mVoltage3.getText().toString());
             mVoltageLay3.setError(null);
         } else {
-            mVoltageLay3.setError(getString(R.string.enter_valid_voltage));
+            mVoltageLay3.setError(getString(R.string.invalid_voltage3));
             volt3 =0.0;
         }
         if (SinglePhase.isValidNumber(mAvail.getText())) {
@@ -249,7 +239,7 @@ public class ThreePhase extends Fragment {
          *
           */
         double kw = 3 * current * voltage * pf/1000;
-        double kwh = kw * avail;
+        double kwh = kw * avail* month;
         double amount = kwh * tariff * 1.075 ;
 
         //set the values to the text views

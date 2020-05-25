@@ -7,12 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,8 +25,8 @@ import com.google.android.material.textview.MaterialTextView;
 public class SinglePhase extends Fragment {
     private TextInputLayout mCurrent, mVoltage, mPf, mAvailability, mMonth, mTariff;
     //inter edit fields
-   private TextInputEditText innerCurrent, innerVoltage, innerPf, innerAvail,innerMonth, innerTariff;
-   private TextView noteText;
+    private TextInputEditText innerCurrent, innerVoltage, innerPf, innerAvail, innerMonth, innerTariff;
+    private MaterialTextView noteText;
 
 
     private MaterialTextView mKw, mKwh, mAmount;
@@ -45,13 +44,13 @@ public class SinglePhase extends Fragment {
         //initialise the views
         //Edit text views
         mCurrent = view.findViewById(R.id.current_edit);
-         mVoltage = view.findViewById(R.id.voltage_edit);
-         mPf = view.findViewById(R.id.pf_edit);
+        mVoltage = view.findViewById(R.id.voltage_edit);
+        mPf = view.findViewById(R.id.pf_edit);
         mAvailability = view.findViewById(R.id.availability_edit);
-         mTariff = view.findViewById(R.id.tariff_edit);
-         mMonth = view.findViewById(R.id.num_months_edit);
+        mTariff = view.findViewById(R.id.tariff_edit);
+        mMonth = view.findViewById(R.id.num_months_edit);
         //Button views
-       final MaterialButton mReset = view.findViewById(R.id.reset_single_button);
+        final MaterialButton mReset = view.findViewById(R.id.reset_single_button);
         final MaterialButton mCalculate = view.findViewById(R.id.calculate_single_button);
         //for text views
         mKw = view.findViewById(R.id.kw_first);
@@ -69,7 +68,6 @@ public class SinglePhase extends Fragment {
         noteText = view.findViewById(R.id.note_text);
 
 
-
         //setting on click listener on the calculate button
         mCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,12 +83,12 @@ public class SinglePhase extends Fragment {
         mReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             reset();
+                reset();
             }
         });
 
         //set on key listener
-        setKeyListener();
+        setOnTouchListener();
 
         return view;
     }
@@ -116,7 +114,6 @@ public class SinglePhase extends Fragment {
         mMonth.setError(null);
 
 
-
         //set note text invisible
         noteText.setVisibility(View.INVISIBLE);
 
@@ -135,57 +132,57 @@ public class SinglePhase extends Fragment {
         //getting the string values from the edit text
         //current
 
-       if (!isValidNumber(mCurrent.getEditText().getText())){
-           mCurrent.setError("Enter Valid Current!");
-           currentInt =0.0;
+        if (!isValidNumber(mCurrent.getEditText().getText())) {
+            mCurrent.setError("Enter Valid Current!");
+            currentInt = 0.0;
 
 
-       }else{
-           currentInt = Double.parseDouble(mCurrent.getEditText().getText().toString());
-           mCurrent.setError(null);
-       }
-        if (!isValidNumber(mVoltage.getEditText().getText())){
+        } else {
+            currentInt = Double.parseDouble(mCurrent.getEditText().getText().toString());
+            mCurrent.setError(null);
+        }
+        if (!isValidNumber(mVoltage.getEditText().getText())) {
             mVoltage.setError("Enter Valid Voltage!");
-            voltageInt =0.0;
+            voltageInt = 0.0;
 
 
-        }else{
+        } else {
             voltageInt = Double.parseDouble(mVoltage.getEditText().getText().toString());
             mVoltage.setError(null);
         }
-        if (!isValidNumber(mPf.getEditText().getText())){
+        if (!isValidNumber(mPf.getEditText().getText())) {
             mPf.setError("Enter Valid Power Factor!");
-            pfInt =0.0;
+            pfInt = 0.0;
 
 
-        }else{
+        } else {
             pfInt = Double.parseDouble(mPf.getEditText().getText().toString());
             mPf.setError(null);
         }
-        if (!isValidNumber(mMonth.getEditText().getText())){
+        if (!isValidNumber(mMonth.getEditText().getText())) {
             mMonth.setError("Enter Valid Number of Month(s)!");
-            monthInt =0.0;
+            monthInt = 0.0;
 
 
-        }else{
+        } else {
             monthInt = Double.parseDouble(mMonth.getEditText().getText().toString());
             mMonth.setError(null);
         }
-        if (!isValidNumber(mAvailability.getEditText().getText())){
+        if (!isValidNumber(mAvailability.getEditText().getText())) {
             mAvailability.setError("Enter Valid Hour(s) of Availability!");
-            availInt =0.0;
+            availInt = 0.0;
 
 
-        }else{
+        } else {
             availInt = Double.parseDouble(mAvailability.getEditText().getText().toString());
             mAvailability.setError(null);
         }
-        if (!isValidNumber(mTariff.getEditText().getText())){
+        if (!isValidNumber(mTariff.getEditText().getText())) {
             mTariff.setError("Enter valid Tariff Class!");
-            tariffInt =0.0;
+            tariffInt = 0.0;
 
 
-        }else{
+        } else {
             tariffInt = Double.parseDouble(mTariff.getEditText().getText().toString());
             mTariff.setError(null);
         }
@@ -196,26 +193,28 @@ public class SinglePhase extends Fragment {
         double amount = kwh * tariffInt * 1.075;
 
         //setting the value to text views
-        mKw.setText(getString(R.string.power) + " "+ String.format("%.3f", kw)+ "KW");
-        mKwh.setText(getString(R.string.energy)+" "+String.format("%.3f",kwh) + "KWh");
-        mAmount.setText(getString(R.string.amount)+" "+"#" + String.format("%.2f", amount));
+        mKw.setText(getString(R.string.power) + " " + String.format("%.3f", kw) + "KW");
+        mKwh.setText(getString(R.string.energy) + " " + String.format("%.3f", kwh) + "KWh");
+        mAmount.setText(getString(R.string.amount) + " " + "#" + String.format("%.2f", amount));
 
         //set note text visible
         noteText.setVisibility(View.VISIBLE);
 
 
     }
-    public static boolean isValidNumber(@NonNull Editable number){
+
+    public static boolean isValidNumber(@NonNull Editable number) {
         try {
             Double.parseDouble(number.toString());
             return true;
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
 
         }
 
 
     }
+
     //hide the keyboard
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -229,70 +228,67 @@ public class SinglePhase extends Fragment {
     }
 
     //set on keyboard key listener
-    private void setKeyListener(){
+    private void setOnTouchListener() {
         //for current edit text
-        innerCurrent.setOnKeyListener(new View.OnKeyListener() {
+        innerCurrent.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                    if (isValidNumber(innerCurrent.getText())) {
-                        mCurrent.setError(null);
-
-                    }
-
+            public boolean onTouch(View v, MotionEvent event) {
+                mCurrent.setError(null);
                 return false;
             }
         });
+//        innerCurrent.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//
+//                if (isValidNumber(innerCurrent.getText())) {
+//                    mCurrent.setError(null);
+//
+//                }
+//
+//                return false;
+//            }
+//        });
         //for voltage
-        innerVoltage.setOnKeyListener(new View.OnKeyListener() {
+        innerVoltage.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (isValidNumber(innerVoltage.getText())){
-                    mVoltage.setError(null);
-                }
-                return false;
-            }
-        });
-       innerTariff.setOnKeyListener(new View.OnKeyListener() {
-           @Override
-           public boolean onKey(View v, int keyCode, KeyEvent event) {
-               if (isValidNumber(innerTariff.getText())){
-                   mTariff.setError(null);
-               }
-               return false;
-           }
-       });
-        innerPf.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (isValidNumber(innerPf.getText())){
-                    mPf.setError(null);
-                }
-                return false;
-            }
-        });
-        innerMonth.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (isValidNumber(innerMonth.getText())){
-                    mMonth.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mVoltage.setError(null);
                 return false;
             }
         });
 
-        innerAvail.setOnKeyListener(new View.OnKeyListener() {
+        innerTariff.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (isValidNumber(innerAvail.getText())){
-                    mAvailability.setError(null);
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                mTariff.setError(null);
                 return false;
             }
         });
 
+        innerPf.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mPf.setError(null);
+                return false;
+            }
+        });
 
+        innerMonth.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mMonth.setError(null);
+                return false;
+            }
+        });
 
+        innerAvail.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mAvailability.setError(null);
+                return false;
+            }
+        });
 
 
     }

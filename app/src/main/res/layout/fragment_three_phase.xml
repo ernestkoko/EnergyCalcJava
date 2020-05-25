@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="invisible"
+            android:textSize="18sp"
             android:text="@string/vat_is_seven_point_five_percent"
             android:textColor="@color/colorAccent" />
 
@@ -38,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_end"
                 android:layout_weight="1"
-                android:hint="@string/current"
+                android:hint="@string/current1"
                 app:errorEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/current_main_edit1"
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_end"
                 android:layout_weight="1"
-                android:hint="@string/current"
+                android:hint="@string/current2"
                 app:errorEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/current_main_edit2"
@@ -62,7 +63,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_weight="1"
-                android:hint="@string/current"
+                android:hint="@string/current3"
                 app:errorEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/current_main_edit3"
@@ -82,7 +83,7 @@
 
                     android:layout_marginEnd="@dimen/margin_end"
                     android:layout_weight="1"
-                    android:hint="@string/voltage"
+                    android:hint="@string/voltage1"
                     app:errorEnabled="true">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inner_voltage1"
@@ -95,7 +96,7 @@
 
                     android:layout_marginEnd="@dimen/margin_end"
                     android:layout_weight="1"
-                    android:hint="@string/voltage"
+                    android:hint="@string/voltage2"
                     app:errorEnabled="true">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inner_voltage2"
@@ -108,7 +109,7 @@
 
 
                     android:layout_weight="1"
-                    android:hint="@string/voltage"
+                    android:hint="@string/voltage3"
                     app:errorEnabled="true">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inner_voltage3"

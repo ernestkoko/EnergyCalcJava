@@ -14,13 +14,15 @@
         android:layout_margin="@dimen/eight_dp"
         android:orientation="vertical"
         >
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/note_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="invisible"
+            android:textAppearance="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
             android:text="@string/vat_is_seven_point_five_percent"
+            android:textSize="18sp"
             android:textColor="@color/colorAccent" />
 
         <LinearLayout

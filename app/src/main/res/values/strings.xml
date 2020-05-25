@@ -11,7 +11,13 @@
     <string name="months" translatable="false">Month(S)</string>
     <string name="tariff" translatable="false">Tariff</string>
     <string name="current" translatable="false">Current</string>
+    <string name="current1">Current1</string>
+    <string name="current2">Current2</string>
+    <string name="current3">Current3</string>
     <string name="voltage" translatable="false">Voltage</string>
+    <string name="voltage1">Voltage1</string>
+    <string name="voltage2">Voltage2</string>
+    <string name="voltage3">Voltage3</string>
     <string name="pf">Pf</string>
     <string name="night_mode">Night Mode</string>
     <string name="day_mode">Day Mode</string>
@@ -25,4 +31,10 @@
     <string name="enter_valid_month">Enter Valid Number of Month(s)</string>
     <string name="enter_valid_tariff">Enter Valid Tariff!</string>
     <string name="vat_is_seven_point_five_percent">Note: VAT is 7.5% in Nigeria</string>
+    <string name="invalid_current1">Enter Valid Current1</string>
+    <string name="invalid_current2">Enter Valid Current2</string>
+    <string name="invalid_current3">Enter Valid Current3</string>
+    <string name="invalid_voltage1">Enter Valid Voltage1</string>
+    <string name="invalid_voltage2">Enter Valid voltage2</string>
+    <string name="invalid_voltage3">Enter Valid Voltage3</string>
 </resources>
